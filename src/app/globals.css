@@ -19,6 +19,8 @@ body {
   background: var(--background);
   font-family: var(--font-trench, Helvetica, sans-serif);
   font-size: 3rem;
+  margin: 0%;
+  overflow: hidden;
 }
 
 @layer utilities {
