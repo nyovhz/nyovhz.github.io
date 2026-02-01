@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
 
+  basePath: "/nyovhz.github.io",
+  assetPrefix: "/nyovhz.github.io/",
+
   images: {
     unoptimized: true,
     remotePatterns: [
