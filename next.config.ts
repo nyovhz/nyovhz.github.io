@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
-/** @type {import('next').NextConfig} */
-const nextConfig:NextConfig = {
+const nextConfig: NextConfig = {
+  output: "export",
+
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -11,15 +13,14 @@ const nextConfig:NextConfig = {
       },
     ],
   },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.(glsl|vert|frag)$/,
       type: "asset/source",
     });
-
     return config;
   },
 };
 
 export default nextConfig;
-
