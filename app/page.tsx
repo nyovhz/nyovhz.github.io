@@ -69,7 +69,7 @@ const GalleryItem = memo(({ item, title, index, onClick }: any) => {
         "
       >
         <p className="text-xs tracking-wide text-gray-200">
-          Experimental Visual System #{index + 1}
+          x{index + 1}
         </p>
       </div>
     </div>
@@ -315,7 +315,7 @@ export default function Home() {
         </p>
 
         <div className="flex gap-8 text-xs text-gray-400">
-          <a className="hover:text-white transition" href="/">Instagram</a>
+          <a className="hover:text-white transition" href="https://www.instagram.com/nyovhz_/">Instagram</a>
           <a className="hover:text-white transition" href="#">GitHub</a>
           <a className="hover:text-white transition" href="#">LinkedIn</a>
         </div>
