@@ -16,7 +16,6 @@ interface MediaCarouselProps {
   interval?: number
   type?: CarouselType
   grayscaleOnHover?: boolean
-  // NUEVA FLAG:
   transparentBlur?: boolean 
 }
 
@@ -25,7 +24,7 @@ const MediaCarousel = ({
   interval = 4000,
   type = "normal",
   grayscaleOnHover = true,
-  transparentBlur = false, // Por defecto es falso
+  transparentBlur = false,
 }: MediaCarouselProps) => {
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState<1 | -1>(1)
@@ -67,12 +66,11 @@ const MediaCarousel = ({
     return () => clearInterval(id)
   }, [isVisible, interval, nextStep, items.length])
 
-  // Lógica de estilos condicionales
   const containerClasses = [
-    "group relative w-full h-[420px] rounded-2xl overflow-hidden transform-gpu transition-all duration-500",
+    "group relative w-full h-[420px] rounded-xl overflow-hidden transform-gpu transition-all duration-500",
     transparentBlur 
-      ? "bg-white/5 backdrop-blur-md border border-white/10" // Modo transparente
-      : "bg-neutral-900" // Modo sólido
+      ? "bg-white/2 backdrop-blur-md " 
+      : "bg-neutral-900" 
   ].join(" ")
 
   const grayscaleClass = grayscaleOnHover
@@ -117,10 +115,8 @@ const MediaCarousel = ({
         )
       })}
 
-      {/* Gradiente sutil para que los controles siempre sean visibles */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none z-20" />
 
-      {/* DOTS */}
       <div className="absolute bottom-6 left-6 flex gap-2 z-30">
         {items.map((_, i) => (
           <button

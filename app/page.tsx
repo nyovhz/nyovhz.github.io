@@ -25,11 +25,15 @@ const GalleryItem = memo(({ item, title, index, onClick }: any) => {
       className="
         group relative
         h-64 md:h-72 lg:h-80
-        rounded-3xl
+        rounded-xl
         overflow-hidden
-        bg-neutral-900
+        bg-white/40
+        backdrop-blur-2xl
+        border border-black/5
+        shadow-[0_8px_30px_rgba(0,0,0,0.04)]
         cursor-pointer
         transform-gpu
+        transition
       "
     >
       {isVideo ? (
@@ -41,7 +45,7 @@ const GalleryItem = memo(({ item, title, index, onClick }: any) => {
           playsInline
           className="
             absolute inset-0 w-full h-full object-cover
-            group-hover:scale-105 transition duration-500
+            group-hover:scale-[1.02] transition duration-500
           "
         />
       ) : (
@@ -52,7 +56,7 @@ const GalleryItem = memo(({ item, title, index, onClick }: any) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="
             object-cover
-            group-hover:scale-105 transition duration-500
+            group-hover:scale-[1.02] transition duration-500
           "
         />
       )}
@@ -60,7 +64,7 @@ const GalleryItem = memo(({ item, title, index, onClick }: any) => {
       <div
         className="
           absolute inset-0
-          bg-black/40
+          bg-white/20
           opacity-0 group-hover:opacity-100
           transition
           flex items-end
@@ -98,6 +102,7 @@ export default function Home() {
       window.removeEventListener("keydown", handleEsc)
       document.body.style.overflow = "unset"
     }
+
     return () => {
       window.removeEventListener("keydown", handleEsc)
       document.body.style.overflow = "unset"
@@ -111,88 +116,86 @@ export default function Home() {
   ]
 
   return (
-    <main className="relative z-0 min-h-screen bg-black text-white selection:bg-white select-none">
-      <ShaderBackground />
+    <main className="relative min-h-screen bg-[#f7f7f4] text-neutral-900 selection:bg-black selection:text-white overflow-hidden">
 
+      <div className="opacity-[0.25]">
+        <ShaderBackground />
+      </div>
+
+      {/* HERO */}
       <section
         className="
           relative z-10 max-w-7xl mx-auto px-6
-          py-24 md:py-28 lg:py-32
+          py-32 md:py-40
           grid md:grid-cols-2
-          gap-12 lg:gap-16
+          gap-16
           items-center
         "
       >
-        <div className="animate-in fade-in slide-in-from-left-4 duration-1000">
+        <div>
           <h1
             className="
-              text-5xl md:text-6xl lg:text-7xl
-              font-bold
-              leading-[0.95]
-              tracking-tight
+              text-5xl md:text-7xl lg:text-[7rem]
+              font-semibold
+              tracking-[-0.06em]
+              leading-[0.9]
             "
           >
             Creative <br /> Technologist
           </h1>
 
-          <p className="mt-6 text-lg text-gray-400 max-w-xl leading-relaxed">
+          <p className="mt-6 text-neutral-500 max-w-xl leading-relaxed">
             I develop real-time graphics, generative systems, and interactive tools.
             I focus on high-performance visuals and experimental interfaces.
           </p>
 
-          <div className="mt-10 flex items-center gap-10">
+          <div className="mt-10 flex gap-10">
             <button
               onClick={() => scrollToSection('work')}
-              className="
-                text-xs tracking-[0.2em]
-                text-white/80 hover:text-white
-                transition
-              "
+              className="text-xs tracking-[0.2em] text-neutral-500 hover:text-black transition"
             >
               [ VIEW WORK ]
             </button>
 
             <button
               onClick={() => scrollToSection('contact')}
-              className="
-                text-xs tracking-[0.2em]
-                text-white/40 hover:text-white
-                transition
-              "
+              className="text-xs tracking-[0.2em] text-neutral-400 hover:text-black transition"
             >
               CONTACT
             </button>
           </div>
         </div>
 
-        <MediaCarousel
-          items={xBiomediaItems}
-          type="pingpong"
-          grayscaleOnHover={false}
-          transparentBlur={true}
-        />
+        <div className="opacity-90">
+          <MediaCarousel
+            items={xBiomediaItems}
+            type="pingpong"
+            grayscaleOnHover={true}
+            transparentBlur={true}
+          />
+        </div>
       </section>
 
+      {/* WORK */}
       <section
         id="work"
         className="
           relative z-10 max-w-7xl mx-auto px-6
-          py-28 md:py-32
+          py-32
           grid md:grid-cols-2
-          gap-14 lg:gap-20
-          items-center
-          backdrop-blur-sm bg-black/5
-          rounded-[4rem]
+          gap-16
         "
       >
-        <MediaCarousel items={xPDWorldmediaItems} grayscaleOnHover={false} />
+        <div className="rounded-xl overflow-hidden">
+          <MediaCarousel items={xPDWorldmediaItems} grayscaleOnHover={false} />
+        </div>
 
         <div>
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
             Work & Logic.
           </h2>
 
-          <p className="mt-6 text-lg text-gray-400 max-w-xl leading-relaxed">
+          <p className="mt-6 text-neutral-500 leading-relaxed">
             A record of my technical explorations in digital form.
             These projects focus on the behavior of light, shape, and code-driven interaction.
           </p>
@@ -201,14 +204,9 @@ export default function Home() {
             {["Generative visuals", "Real-time Interaction", "Data mapping"].map(text => (
               <li
                 key={text}
-                className="
-                  flex items-center gap-4
-                  text-xs font-mono uppercase
-                  tracking-[0.18em]
-                  text-gray-300
-                "
+                className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-neutral-500"
               >
-                <span className="text-[6px] text-white">●</span>
+                <span className="text-[6px]">●</span>
                 {text}
               </li>
             ))}
@@ -216,21 +214,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SECTIONS */}
       {sections.map(({ title, items }) => (
         <section
           key={title}
-          className="relative z-10 max-w-7xl mx-auto px-6 py-24"
+          className="relative z-10 max-w-7xl mx-auto px-6 py-32"
         >
           <h2 className="text-2xl font-semibold mb-10 tracking-tight">
             {title}
           </h2>
 
-          <div
-            className="
-              grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
-              gap-8 lg:gap-10
-            "
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {items.map((item: any, i: number) => (
               <GalleryItem
                 key={`${title}-${i}`}
@@ -244,32 +238,28 @@ export default function Home() {
         </section>
       ))}
 
-      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
-        <div
-          className="
-            relative p-14 md:p-16
-            border border-white/10
-            rounded-[3rem]
-            bg-neutral-900/40
-            backdrop-blur-xl
-          "
-        >
+      {/* ABOUT */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="p-14 md:p-16 rounded-xl bg-white/40 backdrop-blur-2xl border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+
           <div className="space-y-16">
+
             <div>
-              <h2 className="text-3xl md:text-4xl font-semibold mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-6">
                 About
               </h2>
-              <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
+              <p className="text-neutral-500 max-w-3xl leading-relaxed">
                 I’m a creative technologist focused on building expressive digital systems.
                 My work blends real-time graphics, generative design, and modern web.
               </p>
             </div>
 
             <div>
-              <h2 className="text-3xl md:text-4xl font-semibold mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-6">
                 Skills
               </h2>
-              <div className="flex flex-wrap gap-4">
+
+              <div className="flex flex-wrap gap-3">
                 {[
                   "Creative Coding",
                   "WebGL",
@@ -284,33 +274,30 @@ export default function Home() {
                     key={skill}
                     className="
                       px-4 py-2
-                      rounded-full
-                      bg-white/5
-                      border border-white/10
-                      text-sm text-gray-300
-                      hover:bg-white/10
-                      transition
+                      rounded-xl
+                      bg-white/60
+                      border border-black/5
+                      text-sm text-neutral-600
+                      backdrop-blur-md
                     "
                   >
                     {skill}
                   </span>
                 ))}
               </div>
+
             </div>
+
           </div>
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer
         id="contact"
-        className="
-          relative z-10 max-w-7xl mx-auto px-6 py-12
-          border-t border-white/10
-          flex flex-col md:flex-row
-          justify-between items-center gap-6
-        "
+        className="relative z-10 max-w-7xl mx-auto px-6 py-16 border-t border-black/5 flex justify-between"
       >
-        <p className="text-gray-500 text-xs italic">
+        <p className="text-xs text-neutral-400">
           © {new Date().getFullYear()} neo3xt
         </p>
 
@@ -321,33 +308,26 @@ export default function Home() {
         </div>
       </footer>
 
+      {/* MODAL */}
       {activeMedia && (
         <div
           onClick={() => setActiveMedia(null)}
           className="
             fixed inset-0 z-[100]
-            bg-black/90 backdrop-blur-lg
+            bg-white/40 backdrop-blur-3xl
             flex items-center justify-center
-            p-4 md:p-12
-            animate-in fade-in duration-300
+            p-6
           "
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="
-              relative w-full max-w-6xl
-              aspect-video
-              rounded-2xl
-              overflow-hidden
-              shadow-2xl
-            "
+            className="relative w-full max-w-6xl aspect-video rounded-xl overflow-hidden shadow-xl"
           >
             {activeMedia.type === "image" ? (
               <Image
                 src={optimizeCloudinaryUrl(activeMedia.src, 2400, "image")}
                 alt="Expanded view"
                 fill
-                priority
                 className="object-contain"
               />
             ) : (
@@ -362,17 +342,14 @@ export default function Home() {
 
             <button
               onClick={() => setActiveMedia(null)}
-              className="
-                absolute -top-12 right-0 md:-right-12
-                text-white hover:text-gray-400
-                text-2xl p-2 transition
-              "
+              className="absolute -top-10 right-0 text-black text-xl"
             >
               ✕
             </button>
           </div>
         </div>
       )}
+
     </main>
   )
 }
