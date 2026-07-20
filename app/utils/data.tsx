@@ -19,7 +19,17 @@ const xBiomediaItems: MediaType[] = [
 const xPDWorldmediaItems: MediaType[] = [
   {
     type: "image",
+    src: "https://res.cloudinary.com/dp39ooacq/image/upload/v1784579585/liveact_01_jhwe3k.jpg",
+    title: "globe"
+  },
+  {
+    type: "image",
     src: "https://res.cloudinary.com/dp39ooacq/image/upload/v1769674790/Captura_de_pantalla_2026-01-28_181708_xyvdyl.png",
+    title: "globe"
+  },
+    {
+    type: "image",
+    src: "https://res.cloudinary.com/dp39ooacq/image/upload/v1784579902/liveact_02_sljswg.jpg",
     title: "globe"
   },
   {

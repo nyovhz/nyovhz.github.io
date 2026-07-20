@@ -268,7 +268,8 @@ export default function Home() {
                   "GLSL",
                   "Unity",
                   "Unreal Engine",
-                  "Interactive Systems"
+                  "Interactive Systems",
+                  "Blender"
                 ].map(skill => (
                   <span
                     key={skill}
